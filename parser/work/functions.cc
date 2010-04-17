@@ -1,40 +1,21 @@
-#include <iostream>
-#include <string>
-#include <fstream>
+#include "main.h"
 
-#define MAX	1024
-
-using namespace std;
-
-class file {
-
-public:
-char * filename;
-char * strng();
-char * rmspace(char * str_ary, int length);
-int length();
-
-	file(char * fname) {
-	filename = fname;
-	}
-};
-
-char * file::strng() {
+string file::strng() {
   //Declerations
   
   char * test;
 
+  //Initializations
   fstream outfile(filename ,ios::in);
   outfile.seekg(0, ios::end);
-  int len = outfile.tellg();
+  int length = outfile.tellg();
   outfile.seekg(0, ios::beg);
 
-  test = new char[len];
-  outfile.read(test, len-1);
-
-	return test;	
-//	string for_return = test;
-//	return for_return;
+  test = new char[length];
+  outfile.read(test, length);
+	
+	string for_return = test;
+	return for_return;
 }
 
 int file::length() {
@@ -58,6 +39,7 @@ char * file::rmspace(char *str_ary, int length) {
   //Exctraction of string
   for(int i =0; i < length; i++) {
     if(test[i] == '\n') {
+      cout << ' ';
       newary[newlen] = ' ';
       newlen++;
       prev = '\n';
