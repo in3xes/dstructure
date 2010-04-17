@@ -1,0 +1,9 @@
+(C) Pradeepkumar Gayam <deepu.aprjc@gmail.com>
+This is free software gives solution for Tower of Hanoi.
+
+Compile:
+g++ hanoi.cpp -o hanoi
+
+Use:
+./hanoi -number of disks-
+

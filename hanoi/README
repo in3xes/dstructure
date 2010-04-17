@@ -1,0 +1,11 @@
+
+Compiler:  g++ (GNU C++ compiler) 
+This is a free software gives solution for Tower of Hanoi.
+
+Compile:
+g++ hanoi.cpp -o hanoi
+
+Use:
+./hanoi -number of disks-
+
+

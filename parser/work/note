@@ -1,0 +1,11 @@
+examples of tokents
+     keywords eg:do,while,if
+     identifiers eg:int,char
+     operators eg:+,-,*
+
+aldskfjla
+adsjlf
+lexical analyzer:
+wiki:Parser
+
+lexical analyzer is part of compiler which produces tokens for each 
