@@ -29,26 +29,27 @@ public:
   }
 };
 
- 
-void dijkstra::update(vector<int>* v, int pos) {
-  for (int i = 0; i < v->size(); i++) {
-    int vi = v->at(i);
-    if (G[pos][vi] == INFINITE)
-      continue;
-    if (dist[vi] > dist[pos] + G[pos][vi]) {
-      dist[vi] = dist[pos] + G[pos][vi];
-      prec[vi] = pos;
-    }
-  }
-}
-
 void dijkstra::printpath(int node) {
+  
+  vector<int> path;
 
   int curr = prec[node];
   while (curr != -1) {
-    cout << "<<" << curr;
+    //    cout << curr << " to ";
+    path.push_back(curr);
     curr = prec[curr];
   }
+  
+  cout << "Shortest path from 0 to node " << node << " is " << dist[node] << endl;
+  cout << "Path is :\t";
+
+  for(int i = 0 ; i < path.size(); i++) {
+    if(path.size() == 0)
+      break;
+    cout << path.at(path.size() - i - 1 );
+    cout << "->";
+  }
+  cout << node ;
   cout << endl << endl;
 }
 
@@ -73,6 +74,18 @@ void dijkstra::print() {
   }
 }
 
+void dijkstra::update(vector<int>* v, int pos) {
+  for (int i = 0; i < v->size(); i++) {
+    int vi = v->at(i);
+    if (G[pos][vi] == INFINITE)
+      continue;
+    if (dist[vi] > dist[pos] + G[pos][vi]) {
+      dist[vi] = dist[pos] + G[pos][vi];
+      prec[vi] = pos;
+    }
+  }
+}
+
 void dijkstra::sort(vector<int>* v) {
   for (unsigned int i = 0; i < v->size(); i++)
     for (unsigned int j = i; j < v->size(); j++)
@@ -83,18 +96,20 @@ void dijkstra::sort(vector<int>* v) {
       }
 }
 
+
 void dijkstra::initialize() {
   for (int i = 0; i < NODES; i++)
     for (int j = 0; j < NODES; j++)
       G[i][j] = INFINITE;
- 
-  G[0][1] = 20;
-  G[0][4] = 40;
-  G[1][4] = 50;
+  
+  //  G[0][1] = 60;
+  //  G[0][2] = 10;
+  G[1][3] = 90;
+  G[0][4] = 20;
   G[2][3] = 30;
-  G[2][4] = 60;
   G[4][2] = 20;
-  G[4][3] = 100;
+  G[4][3] = 10;
+  G[4][1] = 90;
  
   for (int i = 0; i < NODES; i++) {
     notvisited.push_back(i);
