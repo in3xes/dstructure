@@ -11,7 +11,7 @@ class file {
 public:
 char * filename;
 char * strng();
-char * rmspace(char * str_ary, int length);
+char * rmspace(char * str_ary, int length, int *fl);
 int length();
 
 	file(char * fname) {
@@ -47,7 +47,7 @@ int file::length() {
 	return len;
 }
 
-char * file::rmspace(char *str_ary, int length) {
+char * file::rmspace(char *str_ary, int length, int *fl) {
 	
 	char * test = str_ary;
 	char * newary;
@@ -57,13 +57,13 @@ char * file::rmspace(char *str_ary, int length) {
 
   //Exctraction of string
   for(int i =0; i < length; i++) {
-    if(test[i] == '\n') {
+    if(test[i] == '\n' || test[i] == '\t') {
       newary[newlen] = ' ';
       newlen++;
-      prev = '\n';
+      prev = ' ';
       continue;
     }
-    if(prev == ' ' || prev == '\n'){
+    if(prev == ' '){
       if(test[i] == ' ')
 	continue;
     }
@@ -72,6 +72,41 @@ char * file::rmspace(char *str_ary, int length) {
     newlen++;
     prev = test[i];
   }
-
+	
+	fl = &newlen;
 	return newary;
 }
+
+string keywords[] = { "if", "for", "while", "int", "char" };
+int keywordnum = 5;
+
+bool iskeyword(char * word) {
+	
+	if(keywords[0] == word){
+		cout << "yes\n";
+		return true;
+	}
+	else {
+		cout << "no\n";
+		return false;
+	}
+}
+
+void print(char * content, int len)
+	{
+	for( int i = 0; i < len; i++)
+		cout << content[i];
+	}
+	
+void words(char * content, int len) {
+	
+	char * buffer;
+	cout << len << endl;
+	for(int i = 0; i < len; i++) {
+		if(content[i] == ' ' )
+			cout << endl;
+		else
+			cout << content[i];
+	}
+}
+		
