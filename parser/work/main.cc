@@ -10,16 +10,9 @@ int main(int argc, char * argv[]) {
 	int *fl;
 	char * fc_remoed = F.rmspace(file_content, l, fl);
 	
-//	cout << fc_remoed << endl;
-
 	char * word = "if";
-//	iskeyword(word);
-
-//	words(fc_remoed, *fl);
 
 	print(fc_remoed, *fl);
-
-//	cout << fc_remoed ;
 
 	return 1;
 }

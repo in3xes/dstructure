@@ -109,4 +109,3 @@ void words(char * content, int len) {
 			cout << content[i];
 	}
 }
-		
