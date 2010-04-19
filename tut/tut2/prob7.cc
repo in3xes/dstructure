@@ -63,13 +63,15 @@ void dll::del() {
 int main()
 {
   dll D;
-  string test = "fff";
-  //  cout << test << endl;
+  string test = "test1";
   D.insert(test);
-  D.insert("afdas");
-  D.insert("afadfafdsa");
+  D.insert("test2");
+  D.insert("test3");
+	cout << "String elements in linked list\n";
   D.print();
+	cout << "Deleting element from head\n";
   D.del();
   D.print();
+
   return 1;
 }

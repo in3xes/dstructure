@@ -109,7 +109,7 @@ void dll::sol(dll B) {
 	insert_rand(temp->info, num-1);
 	temp = temp->Rlink;
 	lenA++;
-	cout << lenA << "\t" << num-1 << endl;
+//	cout << lenA << "\t" << num-1 << endl;
       }
       else
 	break;
@@ -120,17 +120,24 @@ int main() {
 
   dll A, B;
 
-  B.insert(555);
-  B.insert(3354);
-  B.insert(455);
-  B.insert(55);
-  B.insert(11);
-  B.insert(44);
+  B.insert(6666);
+  B.insert(5555);
+  B.insert(4444);
+  B.insert(3333);
+  B.insert(2222);
+  B.insert(1111);
+	
+	cout << "Elements in double linked list B\n";
+	B.print();
   for(int j = 0; j < 10; j++)
   {
-    A.insert(j);
+    A.insert(10-j);
   }
+	cout << "Elements in double linked list A before insertion\n";
   A.print();
+	cout << endl;
   A.sol(B);
+	cout << endl;
+	cout << "Elements in double linked list after insertion\n";
   A.print();
 }

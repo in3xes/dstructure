@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdlib.h>
 using namespace std;
 
   struct node {
@@ -197,29 +198,100 @@ int dll::count_recur(int count, node *N) {
        return count_recur(count, N->Rlink)+1;
 }
 
+void print_menu() {
+
+	cout <<	"Press 'a' to add to head\t\n";
+	cout << "press 'f' to print forward\t\n";
+	cout << "Press 'b' to print backward\t\n";
+	cout << "Press 'o' to delete nodes at odd positions\t\n";
+	cout << "Press 'd' to dleete duplicate nodes\t\n";
+	cout << "Press 'n' to delete a node\t\n";
+	cout << "Press 'c' to count number of nodes\t\n";
+	cout << "Press 's' to check weather an element is in list or not\t\n";
+	cout << "Press 'i' to insert element at specific node\t\n";
+	cout << endl;
+}
+
+void small_menu() {
+	cout << "Press 'm' for menu \t\n";
+	cout << "Press 'q' to quit \t\n";
+}
+
 int main() 
 {
   dll D;
 
+	char input = '\0';
   for(int i = 0; i < 10; i++) {
+    cout << "Inserting " << (100 +(i*i)) << endl;
     D.insert(100 + (i*i));
   }
+	
+	cout << "\nElements in list are :\n";
+	D.print();
 
-  // D.print();
-  // D.del();
-  // D.print();
-  // D.insert_rand(45, 4);
-  // D.print();
-  // D.del_odd();
-  // D.print();
-  // D.insert(125);
-
-//   D.insert(125);
-//   D.insert(104);
-//   D.insert(109);
-//   D.print();
-//   D.del_dup();
-   D.print();
-   D.print_backward();
-
+	while(true) {
+		small_menu();
+		cin >> input;
+		switch(input) {
+			case 'm':
+				print_menu();
+				break;
+			case 'a':
+				cout << "Enter an element to add to head :\t";
+				int elem;
+				cin >> elem;
+				D.insert(elem);
+				break;
+			case 'f':
+				cout << endl;
+				D.print();
+				break;
+			case 'b':
+				cout << endl;
+				D.print_backward();
+				break;
+			case 'o':
+				D.del_odd();
+				break;
+			case 'd':
+				D.del_dup();
+				break;
+			case 'n':
+				cout << "Enter the position of node you want to dele :\t";
+				int pos;
+				cin >> pos;
+				D.del_rand(pos);
+				break;
+			case 'c':
+				cout << "Number of elements in list is :\t";
+				int count; 
+				count = D.count_recur(count, D.L);
+				cout << count << endl;
+				break;
+			case 's':
+				cout << "Enter the elements to  search\n";
+				int el;
+				cin >> el;
+				if(D.search(el) != -1){
+					cout << "Position of elements is :\t";
+					cout << D.search(el);
+				}
+				else
+					cout << "Element not present\n";
+				
+				break;
+			case 'i':
+				cout << "Enter an element to insert :\t";
+				int element;
+				cin >> element;
+				cout << "Enter position where you want to insert :\t";
+				int position;
+				cin >> position;
+				D.insert_rand(element, position);
+				break;
+			case 'q':
+				exit(0);
+		}
+	}
 }
