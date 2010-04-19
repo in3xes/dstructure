@@ -6,16 +6,18 @@
 
 using namespace std;
 
-char delimiter[] = { ' ', '\n', '\t' };
-string operators[] = { "=", "*", "+", "-", "/", "++" };
-string logicalop[] = { "==", "=<", "print", "=>", ">", "<" };
-string keywords[] = { "if", "for", "whi", "const", "int", "char" };
+char delimiter[] = { ' ', '\n', '\t', '(', ')', '{', '}', ';' };
+string operators[] = { "=", "*", "+", "-", "/"};
+string logicalop[] = { "==", "=<", "=>", ">", "<" };
+string keywords[] = { "if", "for", "while", "const", "int", "char", "print" };
 
+int keywordlen[] = {2, 3, 5, 5, 3, 4, 5};
+int logicaloplen[] = {2, 2, 3, 1, 1};
 
-int keywordnum = 6;
-int delimnum = 3;
-int oper = 6;
-int logop = 6;
+int keywordnum = 7;
+int delimnum = 8;
+int oper = 5;
+int logop = 5;
 
 bool isdelim(char ch) {
 	for( int i = 0; i < delimnum; i++) {
@@ -128,61 +130,106 @@ void print(char * content, int len)
 	cout << endl;
 	}
 
-bool iskeyword(string word) {
+bool iskeyword(char * word, int size) {
 
+	int res = 0;
 	for(int i = 0; i < keywordnum; i++) {
-		if(word == keywords[i])
-			return true;
-	}
-	
-	return false;
-}
-
-bool islogicalop(char *word) {
-	
-	for( int i = 0 ; i < logop; i++) {
-		if(word == logicalop[i]) {
-			return true;
+//		cout << size << "\t" << keywordlen[i] << endl;
+		if(size == keywordlen[i]) {
+			string kword = keywords[i];
+			int test = 0;
+			for(int j = 0 ; j < size; j++) {
+				if(word[j] == kword[j])
+				{
+//				cout << test << "\t";
+					test++;
+				if(test == size)
+					return true;
+				}
+				else
+					break;
+			}
 		}
-	return false;
 	}
+
+	return false;
+
 }
 
-bool isoperator(char * word) {
+bool islogicalop(char *word, int size) {
 	
-	for(int i = 0 ; i < oper; i++) {
-		if(word == operators[i])
-			return true;
+	int res = 0;
+	for( int i = 0 ; i < logop; i++) {
+	//	cout << size << "\t" << keywordlen[i] << endl;
+		if(size == logicaloplen[i]) {
+			string lword = logicalop[i];
+			int test = 0;
+			for( int j = 0 ; j < size; j++) {
+				if(word[j] == lword[j])
+				{
+	//			cout << "came here\t";
+	//			cout << test << endl;
+					test++;
+				if(test == size) 
+					return true;
+				}
+				else
+					break;
+			}
+		}
 	}
+
+		return false;
+	}
+
+bool isoperator(char * word, int size) {
 	
-	return false;
+	int res = 0;	
+	for(int i = 0 ; i < oper; i++) {
+		if(size == 1) {
+			string oword = operators[i];
+			int test = 0;
+			for( int j = 0; j < size; j++) {
+				if(word[j] == oword[j]) {
+					test++;
+					if(test == size)
+						return true;
+					}
+				else
+					break;
+			}
+		}
+	}
 }
 
 void words(char * content, int len) {
 	
 	vector<char>  buffer;
 	int size = 0;
-	string word; 
-	char * test;
+	char * word; 
 
 	for(int i = 0; i < len; i++) {
 		if(content[i] == ' ' ) {
-				test = new char[4];
+			size = buffer.size();
+			word = new char[size];
 			for( int j = 0; j < buffer.size(); j++) {
-				word.insert(buffer[j]);
+				word[j] = buffer[j];
+				cout << word[j];
 			}
-				cout << word;
-				if(iskeyword(word)) {
+//				cout << word << "\t" << size; 
+				if(iskeyword(word, size)) {
 					cout << "\t is a keyword";
 				}
-		/*		if(isoperator(word)) {
-					cout << "\t is a operator";
-				}
-				if(islogicalop(word)) {
+				else if(islogicalop(word, size)) {
 					cout << "\t is logical operator";
 				}
-				buffer.erase(buffer.begin(), buffer.end());
-				size = 0; */
+				else if(isoperator(word , size)) {
+					cout << "\t is an operator";
+				}
+				else
+					cout << "\t is an identifier";
+
+
 				cout << endl;
 				buffer.clear();
 			}
