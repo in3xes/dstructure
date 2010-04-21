@@ -7,18 +7,18 @@
 
 using namespace std;
 
-char delimiter[] = { ' ', '\n', '\t', '(', ')', '{', '}', ';' };
-string operators[] = { "=", "*", "+", "-", "/"};
-string logicalop[] = { "==", "=<", "=>", ">", "<" };
+char delimiter[] = { ' ', '\n', '\t', '(', ')', '{', '}', ';', ']', '['};
+string operators[] = { "*", "+", "-", "/"};
+string logicalop[] = { "==", "=<", "=>", ">", "<", "=" };
 string keywords[] = { "if", "for", "while", "const", "int", "char", "print", "main" };
 
 int keywordlen[] = {2, 3, 5, 5, 3, 4, 5, 4};
-int logicaloplen[] = {2, 2, 3, 1, 1};
+int logicaloplen[] = {2, 2, 3, 1, 1,1 };
 
 int keywordnum = 8;
-int delimnum = 8;
-int oper = 5;
-int logop = 5;
+int delimnum = 10;
+int oper = 4;
+int logop = 6;
 
 struct node {
 
@@ -102,9 +102,35 @@ void llist::prin() {
 	node * temp;
 	temp = new node;
 	temp = L;
+
+	cout << "\nSymbol Tablel: \n";
+	
+	cout << "\nvalue\t\ttype\tid\n\n";
 	
 	while(temp) {
-		cout << temp->value << "\t" << temp->ssize << "\t" << temp->type << "\t" << temp->id << endl;
+		for(int i = 0 ; i < temp->ssize; i++) {
+			cout << temp->value[i];
+		}
+		cout << "\t\t";
+		switch(temp->type) {
+			case 1:
+				cout << "kw\t";
+				break;
+			case 2:
+				cout << "rel\t";
+				break;
+			case 3:
+				cout << "aop\t";
+				break;
+			case 4:
+				cout << "const\t";
+				break;
+			case 5:
+				cout << "iden\t";
+				break;
+		}
+
+		cout << temp->id << endl;
 		
 		temp = temp->next;
 	}
@@ -326,8 +352,12 @@ int isnumber(char * word, int size) {
 
 llist iden;
 
+llist stable;
+
 	
 void words(char * content, int len) {
+
+	cout << "Lexes: \n\n";
 	
 	vector<char>  buffer;
 	int size = 0;
@@ -335,7 +365,7 @@ void words(char * content, int len) {
 
 	for(int i = 0; i < len; i++) {
 		if(content[i] == ' ' ) {
-			cout << "< ";
+			cout << "<";
 			size = buffer.size();
 			word = new char[size];
 			for( int j = 0; j < buffer.size(); j++) {
@@ -346,27 +376,33 @@ void words(char * content, int len) {
 //				cout << word << "\t" << size; 
 				if(iskeyword(word, size) != -1) {
 					cout << "kw." << iskeyword(word, size);
+					stable.insert(word, size, 1, iskeyword(word, size));
 				}
 				else if(islogicalop(word, size) != -1) {
-					cout << "lo." << islogicalop(word, size);
+					cout << "rel." << islogicalop(word, size);
+					stable.insert(word, size, 2, islogicalop(word, size));
 				}
 				else if(isoperator(word , size) != -1) {
 					cout << "op." << isoperator(word, size);
+					stable.insert(word, size, 3, isoperator(word, size));
 				}
 				else if(isnumber(word, size) != -1) {
 					cout << "const." << isnumber(word, size);
+					stable.insert(word, size, 4, isnumber(word, size));
 				}
 				else {
-					if(iden.search(word, size, 1) == -1) {
-						iden.insert(word, size, 1, iden.length + 1);
+					if(iden.search(word, size, 5) == -1) {
+						iden.insert(word, size, 5, iden.length + 1);
+						stable.insert(word, size, 5, iden.length +1);
 						cout << "iden." << iden.length;
 					}
 					else {
 						cout << "iden." << iden.search(word, size, 1);
+						stable.insert(word, size, 5, iden.search(word, size, 5));
 					}
 				}
-					cout << " >";
-					cout << endl;
+					cout << "> ";
+//					cout << endl;
 					buffer.clear();
 				
 			}
@@ -375,6 +411,7 @@ void words(char * content, int len) {
 		}
 
 	}
-	
+
+	cout << endl;	
 }
 

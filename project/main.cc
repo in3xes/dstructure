@@ -20,6 +20,10 @@ int main(int argc, char * argv[]) {
 	
 //	isnumber(a);
 //	iden.prin();
+
+//	cout << endl;
+
+	stable.prin();
 	return 1;
 
 }
