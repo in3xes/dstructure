@@ -12,6 +12,14 @@ int main(int argc, char * argv[]) {
 	words(fc_removed, l);
 //	char * test = ">";
 //	islogicalop(test, 1);
+
+//	char * a ;
+//	a = new char[2];
+//	a[0] = '(';
+//	a[1] = '8';
+	
+//	isnumber(a);
+//	iden.prin();
 	return 1;
 
 }

@@ -1,9 +1,10 @@
-kor ( int i = 0; i ++ )
+kor (int i = 0; i = i + 1 )
 if ( a == 33 ) {
-while ( mf )
+while (mf)
 	print asdfasdf ;
-	const int k = 0;
+	const int k = 0 ;
 print kk
-aaa > main
+mf
+kor
 }
 
