@@ -24,6 +24,7 @@ int main(int argc, char * argv[]) {
 //	cout << endl;
 
 	stable.prin();
+//	stable.prints();
 	return 1;
 
 }
