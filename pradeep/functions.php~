@@ -1,0 +1,9 @@
+<?php
+function getconnection() {
+$conn = mysql_connect('localhost:3306', 'root', 'Newd@t@b@se')
+  or   die('Problem' . mysql_error());
+
+ return $conn;
+  }
+
+

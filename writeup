@@ -3,13 +3,30 @@ Lexical analysis or scanning is the process where the stream of characters makin
 source program is read from left-to-right and grouped into tokens. Tokens are sequences
 of characters with a collective meaning. There are usually only a small number of tokens
 for a programming language: constants (integer, double, char, string, etc.), operators
-(arithmetic, relational, logical), punctuation, and reserved words.
-
+(arithmetic, relational, logical), punctuation, and reserved words.The lexical analyzer
+can be a convenient place to carry out some other chores like
+stripping out comments and white space between tokens and perhaps even some
+features like macros and conditional compilation (although often these are handled by
+some sort of preprocessor which filters the input before the compiler runs).
 The lexical analyzer takes a source program as input, and produces a stream of tokens as
 output.
 
 Lexemes:A lexeme is the actual character sequenceforming a token, the token is the general 
 class that a lexeme belongs to. Some tokens have exactly one lexeme (e.g., the > character);
 for others, there are many lexemes (e.g.,integer constants).
+
+Scanner Implementation 1: Loop and Switch
+
+There are two primary methods for implementing a scanner. The first is a program that
+is hard-coded to perform the scanning tasks. The second uses regular expression and
+finite automata theory to model the scanning process. In this lexical analyzer it implemented with Loop and Switch
+like(With a while and if control statements).
+
+Explanation:
+
+
+
+
+
 
 

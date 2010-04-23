@@ -1,0 +1,11 @@
+<?php
+include('functions.php');
+session_start();
+?>
+<html>
+<body>
+<?php
+display_contents();
+?>
+</body>
+</html>

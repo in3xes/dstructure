@@ -1,0 +1,12 @@
+<?php
+$conn = mysql_connect('localhost:3306', 'root', 'Newd@t@b@se')
+    or   die('Problem' . mysql_error());
+if($conn) {
+  print "connected<br />";
+ }
+ else {
+  print "Nope<br />";
+ }
+
+phpinfo();
+?>
