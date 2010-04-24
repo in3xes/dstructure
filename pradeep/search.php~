@@ -1,0 +1,20 @@
+<?include('functions.php');
+if(islogin()) {
+  echo "Welcome $_SESSION['userid']";
+ }
+else
+  header("Location:login.php");
+
+?>
+<html>
+<body>
+Search:<br />
+<form action='search.php' method='GET'>
+  Username:
+  <input type='text' name='username'><br />
+  Style No:
+  <input type='text' name='sno'><br />
+  Unit No:
+  <input type='text' name='unit'><br />
+  <input type='submit'>
+</form>

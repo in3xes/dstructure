@@ -1,8 +1,7 @@
 <?php
 include('functions.php');
 session_start();
-$userid = $_SESSION['userid'];
-print "Hello $userid<br />";
+welcome();
 ?>
 <html>
 <body>
@@ -37,7 +36,7 @@ if($_SESSION['level'] == 1) {
       }
    else {
      print "your are not allowed to Enter a complaint<br />";
-     print "<a href=\"update.php\">Click Here to add a resolution</a>";
+     print "<a href=\"display.php\">Click Here to add a resolution</a>";
    }
 ?>
 <a href="logout.php">Logout</a>

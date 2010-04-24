@@ -15,17 +15,18 @@ function getconnection() {
 function checkpassword($username, $password, $db) {
 
   if($username != NULL) {
-    $query = "select password from users where name = '$username'";
+    $query = "select password, level from users where name = '$username'";
     $conn_db = getconnection();
     mysql_select_db($db, $conn_db);
 
     $result = mysql_query($query, $conn_db);
     $row = mysql_fetch_assoc($result);
     $password_db = $row['password'];
+    $level = $row['level'];
     if($password == $password_db) {
       session_start();
       $_SESSION['userid'] = $username;
-      $_SESSION['level'] = 1;
+      $_SESSION['level'] = $level;
       header('Location:register.php');
     }
     else
@@ -35,10 +36,11 @@ function checkpassword($username, $password, $db) {
 }
 
 function islogin() {
-  if(isset($_SESSION['userid'])) {
-    header('Location:register.php');
+  if(isset($_SESSION['userid']) != NULL) {
     return true;
   }
+  else
+    return false;
 }
 
 function logout() {
@@ -46,6 +48,13 @@ function logout() {
   session_start();
   session_destroy();
   header('Location:login.php');
+}
+
+function welcome() {
+	if(islogin())
+		echo "Welcome ".$_SESSION['userid']."<br />";
+	else
+		echo "Welcome  Guest<br />";
 }
 
 function complaint($username, $sno, $unit, $complaint) {
@@ -70,6 +79,13 @@ function validate($username, $sno, $unit) {
   return false;
 }
 
+function intime($prev, $curr) {
+	$diff = $curr - $prev;
+	if($diff < (1*24*60*60))
+		return true;
+	else
+		return false;
+}
 function display_contents() {
 
   $conn_db = getconnection();
@@ -79,10 +95,56 @@ function display_contents() {
 
   $result = mysql_query($query, $conn_db);
   while($row = mysql_fetch_assoc($result)) {
-    print $row['complaint']."<br />";
+	echo "<input type='radio' name = 'complaint' value='";
+	echo $row['complainid'];
+	echo "' /> &nbsp ";
+	echo $row['complaint']."<br />By :";
+	echo $row['username']." &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp ";
+	if($row['status'] == 1 ) {
+		if(intime($row['reg_time'], time()))
+			echo "Status : Open<br />";
+		else
+			echo "Status : Deleyed <br />";
+	}
+	else
+		echo "Status : Closed <br />";
+
+	echo "<br /><hr>";
 
   }
+	echo "<input type='submit' value='Resolve'>";
+
+	mysql_close($conn_db);
+
 }
 
+function search($username, $sno, $unit, $word) {
+  $query = "select * from complaint where username like '%$username%' or style_no = $sno or unit = $unit";
+ 	
+  $conn_db = getconnection();
+  mysql_select_db('test', $conn_db);
+  $result = mysql_query($query, $conn_db);
+  while($row = mysql_fetch_assoc($result)) {
+    echo $row['complaint']."<br />";
+  }
+
+  mysql_close($conn_db);
+}
+
+function update($answer, $id) {
+	
+	$conn_db = getconnection();
+	mysql_select_db('test', $conn_db);
+	
+	$query = "update complaint set resolution='$answer' where complainid=$id";
+	$query2 = "update complaint set status=2 where complainid=$id";
+
+//	echo $query;
+//	echo $query2;
+	mysql_query($query, $conn_db);
+	mysql_query($query2, $conn_db);
+	}
+
+include('links.php');
 ?>
 
