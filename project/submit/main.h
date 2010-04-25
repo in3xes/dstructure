@@ -13,12 +13,12 @@ char delimiter[] = { ' ', '\n', '\t', '(', ')', '{', '}', ';', ']', '[', ':'};
 char synerr[] = {'`', '~', '^', '@', '#' };
 string operators[] = { "*", "+", "-", "/", "%"};
 string logicalop[] = { "==", "=<", "=>", ">", "<", "=", "&&", "||", "!=" };
-string keywords[] = { "if", "for", "while", "const", "int", "char", "print", "main" };
+string keywords[] = { "if", "for", "while", "const", "int", "char", "print", "main", "true", "false" };
 
-int keywordlen[] = {2, 3, 5, 5, 3, 4, 5, 4};
+int keywordlen[] = {2, 3, 5, 5, 3, 4, 5, 4, 4 ,5};
 int logicaloplen[] = {2, 2, 3, 1, 1, 1, 2, 2, 2};
 
-int keywordnum = 8;
+int keywordnum = 10;
 int delimnum = 11;
 int oper = 5;
 int logop = 9;
@@ -451,15 +451,15 @@ void words(char * content, int len) {
 //				cout << word << "\t" << size; 
 				if(iskeyword(word, size) != -1) {
 //					cout << "kw." << iskeyword(word, size);
-					stable.insert(word, size, 1, iskeyword(word, size));
+//					stable.insert(word, size, 1, iskeyword(word, size));
 				}
 				else if(islogicalop(word, size) != -1) {
 //					cout << "rel." << islogicalop(word, size);
-					stable.insert(word, size, 2, islogicalop(word, size));
+//					stable.insert(word, size, 2, islogicalop(word, size));
 				}
 				else if(isoperator(word , size) != -1) {
 //					cout << "op." << isoperator(word, size);
-					stable.insert(word, size, 3, isoperator(word, size));
+//					stable.insert(word, size, 3, isoperator(word, size));
 				}
 				else if(isnumber(word, size) != -1) {
 					cout << "const." << isnumber(word, size);
