@@ -472,7 +472,7 @@ void words(char * content, int len) {
 						cout << "iden." << iden.length;
 					}
 					else {
-						cout << "iden." << iden.search(word, size, 1);
+						cout << "iden." << stable.search(word, size, 5);
 						stable.insert(word, size, 5, stable.search(word, size, 5));
 					}
 				}
