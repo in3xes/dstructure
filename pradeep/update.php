@@ -14,6 +14,7 @@ welcome();
 	$query = "select * from complaint where complainid=".$_GET['complaint'];
 	$result = mysql_query($query, $conn_db);
 	$row = mysql_fetch_assoc($result);
+	echo "<b>Complaint: </b><br/><br />";
 	echo $row['complaint']."<br />By :";
 	echo $row['username']."<br />";
 	

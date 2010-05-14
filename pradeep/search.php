@@ -1,22 +1,9 @@
 <?include('functions.php');
 session_start();
 welcome();
-/*
-if(islogin()) {
-  if($_SESSION['level'] ==3) {
-    $userid = $_SESSION['userid'];
-    echo "Welcome ";
-    echo $userid;
-    echo "<br />";
-  }
-  else {
-    header("Location:display.php");
-  }
- }
-else
-  //    header("Location:login.php");
-    echo "Wecome Guest";
-*/
+if(!islogin())
+  header("Location:login.php");
+
 ?>
 <html>
 <body>

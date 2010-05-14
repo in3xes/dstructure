@@ -52,18 +52,18 @@ function logout() {
 
 function welcome() {
 	if(islogin())
-		echo "Welcome ".$_SESSION['userid']."<br />";
+		echo "Welcome ".$_SESSION['userid']."<br /><br />";
 	else
 		echo "Welcome  Guest<br />";
 }
 
-function complaint($username, $sno, $unit, $complaint) {
+function complaint($username, $sno, $unit, $complaint, $pa1, $pa2, $pa3, $pa4) {
   $conn_db = getconnection();
   mysql_select_db('test', $conn_db);
   $userid = $_SESSION['userid'];
   $time = time();
   
-  $query = "insert into complaint(userid, complaint, status, reg_time, username, style_no, unit) values('$userid', '$complaint', 1, $time, '$username', $sno, '$unit')";
+  $query = "insert into complaint(userid, complaint, status, reg_time, username, style_no, unit, pa1, pa2, pa3, pa4) values('$userid', '$complaint', 1, $time, '$username', $sno, '$unit', $pa1, $pa2, $pa3, $pa4)";
 
   //  print $query;
 
@@ -73,10 +73,23 @@ function complaint($username, $sno, $unit, $complaint) {
 }
 
 function validate($username, $sno, $unit) {
-  if($username != NULL && $sno !=NULL && $unit != NULL) {
+  if($username == NULL && $sno ==NULL && $unit == NULL) {
+    print "All the fields must be filled<br />";
+    return false;
+  }
+
+  if($username == NULL || $sno ==NULL || $unit == NULL) {
+    print "Some fields are left blank, All the fields should be filled<br />";
+    return false;
+  }
+  else
+    return true;
+
+  /*  if($username != NULL && $sno !=NULL && $unit != NULL) {
     return true;
   }
   return false;
+  */
 }
 
 function intime($prev, $curr) {
@@ -92,6 +105,48 @@ function display_contents() {
   
   mysql_select_db('test', $conn_db);
   $query = "select * from complaint";
+
+  $result = mysql_query($query, $conn_db);
+  while($row = mysql_fetch_assoc($result)) {
+	echo "<input type='radio' name = 'complaint' value='";
+	echo $row['complainid'];
+	echo "' /> &nbsp ";
+	echo $row['complaint']."<br />By :";
+	echo $row['username']." &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp ";
+	if($row['status'] == 1 ) {
+		if(intime($row['reg_time'], time()))
+			echo "Status : Open<br />";
+		else
+			echo "Status : Deleyed <br />";
+	}
+	else
+		echo "Status : Closed <br />";
+
+	echo "<br /><hr>";
+
+  }
+	echo "<input type='submit' value='Resolve'>";
+
+	mysql_close($conn_db);
+
+}
+function display_contents_users($userid, $level) {
+
+  $conn_db = getconnection();
+  
+  mysql_select_db('test', $conn_db);
+  if($level == 1) {
+    echo "Previous complaints : <br />";
+    $query = "select * from complaint where userid = '".$userid."'";
+  }
+  else {
+    $query_level = "select * from users where userid = '".$userid."'";
+    $result_level = mysql_query($query_level, $conn_db);
+    $row_level = mysql_fetch_assoc($result_level);
+    $query = "select * from complaint where unit = ".$row_level['unit'];
+    echo "Complaints with unit id ".$row_level['unit']." : <br />";
+  }
+  
 
   $result = mysql_query($query, $conn_db);
   while($row = mysql_fetch_assoc($result)) {
@@ -145,6 +200,6 @@ function update($answer, $id) {
 	mysql_query($query2, $conn_db);
 	}
 
-include('links.php');
+//include('links.php');
 ?>
 

@@ -1,6 +1,9 @@
 <?php
 include('functions.php');
 session_start();
+if(!islogin())
+  header("Location:login.php");
+
 welcome();
 ?>
 <html>
@@ -13,6 +16,10 @@ Register a complaint:
     <input type='text' name='s_no' /><br />
     Unit conc:
     <input type='text' name='unit' /><br />
+  Problem Area 1 : <input type='checkbox' name='pa1' /><br />
+  Problem Area 2 : <input type='checkbox' name='pa2' /><br />
+  Problem Area 3 : <input type='checkbox' name='pa3' /><br />
+  Problem Area 4 : <input type='checkbox' name='pa4' /><br />
   Complaints:
     <textarea name='complaint' cols='40' rows='7'>
 Enter your complaints here...</textarea><br />
@@ -23,22 +30,30 @@ $username = $_POST['c_name'];
 $sno = $_POST['s_no'];
 $unit = $_POST['unit'];
 $complaint = $_POST['complaint'];
+if(isset($_POST['pa1']))
+  $pa1=1;
+ else
+   $pa1=0;
+if(isset($_POST['pa2']))
+  $pa2=1;
+ else
+   $pa2=0;
+if(isset($_POST['pa3']))
+  $pa3=1;
+ else
+   $pa3=0;
+if(isset($_POST['pa4']))
+  $pa4=1;
+ else
+   $pa4=0;
 
-if($_SESSION['level'] == 1) {
+
 
   if(validate($username, $sno, $unit)) {
-    complaint($username, $sno, $unit, $complaint);
+    complaint($username, $sno, $unit, $complaint, $pa1, $pa2, $pa3, $pa4);
   }
-        else {
-    print "All the fields should be filled<br />";
-    }
 
-      }
-   else {
-     print "your are not allowed to Enter a complaint<br />";
-     print "<a href=\"display.php\">Click Here to add a resolution</a>";
-   }
+
 ?>
-<a href="logout.php">Logout</a>
 <body/>
 <html/>
