@@ -3,7 +3,7 @@ using namespace std;
 
 class ll {
   struct node {
-    int info;
+    void info;
     node *next;
   };
   

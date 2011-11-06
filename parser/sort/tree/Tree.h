@@ -1,7 +1,7 @@
-#include<malloc.h>
+#include <malloc.h>
 #include <stdbool.h>
-#include<assert.h>
-#include"Stack.h"
+#include <assert.h>
+#include "Stack.h"
 
 struct treeNode{
 	int info;
@@ -33,8 +33,6 @@ void addToTree(TREEPTR * treeRef, int x){
 		addToTree(&(*treeRef)->right,x);
 	}
 }
-
-
 
 void inOrderRec(TREEPTR tree){
 	if(tree!=NULL){		
