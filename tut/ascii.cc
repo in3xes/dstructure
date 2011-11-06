@@ -1,10 +1,19 @@
 #include <iostream>
+#include <algorithm>
+#include <bitset>
+
 using namespace std;
 
 int main()
 {
-	for(int a = 0; a< 126; a++) {
-		cout << (char ) a << endl;
-	}
-	return 1;
+  int val;
+  cin >> val;
+  bitset <8> bs = val;
+
+  // for(int a = 0; a< 126; a++) {
+  //   cout << a << " " << (char ) a << " ";
+  // }
+
+  cout << bs.count() << endl;
+  return 0;
 }
